@@ -17,7 +17,7 @@ use \App\Http\Controllers\ArticleController;
 */
 
 Route::get('/', function () {
-    $articles = Article::join('users', 'articles.user_id', '=', 'users.id')->where('articles.publish', 1)->get();
+    $articles = Article::select('articles.id', 'articles.title', 'articles.content', 'articles.view_count', 'users.name')->join('users', 'articles.user_id', '=', 'users.id')->where('articles.publish', 1)->get();
 
     foreach ($articles as $article) {
         $article->content = substr($article->content, 0, 100);

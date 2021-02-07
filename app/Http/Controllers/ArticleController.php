@@ -38,7 +38,7 @@ class ArticleController extends Controller
      */
     public function articleView(Request $request, $id): \Illuminate\Contracts\Support\Renderable
     {
-        $article = Article::join('users', 'articles.user_id', '=', 'users.id')->find($id);
+        $article = Article::select('articles.id', 'articles.title', 'articles.content', 'articles.view_count', 'users.name')->join('users', 'articles.user_id', '=', 'users.id')->find($id);
         $article->increment('view_count');
 
         $previousID = Article::where('id', '<', $article->id)->max('id');
