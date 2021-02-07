@@ -473,3 +473,6 @@ he/
 *.css.map
 *.sass.map
 *.scss.map
+
+.env
+.phpunit.result.cache
