@@ -1,9 +1,12 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\User;
-use App\Article;
-use App\Rate;
+use App\Models\User;
+use App\Models\Article;
+use App\Models\Rate;
+use Faker;
 
 class UserSeeder extends Seeder
 {
@@ -39,7 +42,7 @@ class UserSeeder extends Seeder
 
                 for ($k = 0; $k < 10; $k++) {
                     $roleData = [
-                        'rate' => rand(1,5),
+                        'rate' => rand(1, 5),
                         'user_id' => $user['id'],
                         'article_id' => $article['id']
                     ];
@@ -49,6 +52,5 @@ class UserSeeder extends Seeder
 
             }
         }
-
     }
 }

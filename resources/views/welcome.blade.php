@@ -6,7 +6,7 @@
 
         <div class="content">
 
-            @foreach ($articles as $key => $article)
+            @foreach ($articles as $article)
 
                 <div class="card">
                     <div class="card-header">

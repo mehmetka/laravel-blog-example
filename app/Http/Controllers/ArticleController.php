@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use App\Rate;
+use App\Models\Article;
+use App\Models\Rate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -104,9 +104,8 @@ class ArticleController extends Controller
             return response(['errors' => $validator->errors()->all()], 422);
         }
         $user = $request->user();
-        $request['user_id'] = $user['id'];
 
-        Article::create($request->toArray());
+        Article::create(['title' => $request['title'], 'content' => $request['content'], 'publish' => $request['publish'], 'user_id' => $user['id']]);
 
         $response = ['message' => 'success'];
         return response($response, 200);
@@ -132,7 +131,7 @@ class ArticleController extends Controller
 
         } else {
             Article::find($id)->delete();
-            Rate::find($id)->delete();
+            Rate::where('article_id', $id)->delete();
         }
 
         $response = ['message' => 'Deleted successfully'];

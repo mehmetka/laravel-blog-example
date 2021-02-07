@@ -1,9 +1,10 @@
 <?php
 
-use App\Article;
-use App\Rate;
+use App\Models\Article;
+use App\Models\Rate;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ArticleController;
+use \App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/articles', [ArticleController::class, 'articlesView'])->name('articles.index');
@@ -45,7 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/articles/edit/{id}', [ArticleController::class, 'editView'])->name('articles.edit');
     Route::put('/articles/edit/{id}', [ArticleController::class, 'update'])->name('articles.update');
     Route::put('/articles/{id}/{publish}', [ArticleController::class, 'publish'])->name('articles.publish');
-
 });
 
 Route::get('/articles/{id}', [ArticleController::class, 'articleView'])->name('articles.show');
+

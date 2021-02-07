@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->longText('content');
             $table->unsignedInteger('view_count')->default(0);
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('publish');
             $table->timestamps();
         });

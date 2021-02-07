@@ -3,6 +3,11 @@
 function calculateRateAverage($rates)
 {
     $count = count($rates);
+
+    if(!$count){
+        return 'Not rated yet';
+    }
+
     $thirtyPercent = round($count / 3);
     $sum = 0;
 
