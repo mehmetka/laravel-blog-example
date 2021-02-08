@@ -19,6 +19,48 @@ class UserSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
+        $users = [
+            [
+                'name' => 'Admin',
+                'email' => 'admin@mobillium.com',
+                'password' => bcrypt('mobillium'),
+                'role' => 3
+            ],
+            [
+                'name' => 'Writer',
+                'email' => 'writer1@mobillium.com',
+                'password' => bcrypt('mobillium'),
+                'role' => 1
+            ]
+        ];
+
+        foreach ($users as $user) {
+            $user = User::create($user);
+
+            for ($i = 0; $i < 10; $i++) {
+                $articleData = [
+                    'title' => $faker->words(rand(3, 10), true),
+                    'content' => $faker->paragraphs(rand(1, 10), true),
+                    'view_count' => rand(0, 300),
+                    'user_id' => $user['id'],
+                    'publish' => rand(0, 1)
+                ];
+
+                $article = Article::create($articleData);
+
+                for ($j = 0; $j < 10; $j++) {
+                    $rateData = [
+                        'rate' => rand(1, 5),
+                        'user_id' => $user['id'],
+                        'article_id' => $article['id']
+                    ];
+
+                    Rate::create($rateData);
+                }
+            }
+
+        }
+
         for ($i = 0; $i < 8; $i++) {
             $userData = [
                 'name' => $faker->name,
